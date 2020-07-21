@@ -50,21 +50,22 @@ def merge_sort(arr):
 def merge_in_place(arr, start, mid, end):
     left = start
     right = mid
-    while right <= end:
+    while left <= mid and right <= end:
         if arr[left] <= arr[right]:
             left += 1
         else:
-            # Swap the left and right values
-            arr[left], arr[right] = arr[right], arr[left]
-            left += 1
+            value = arr[right]
 
-            # Bubble the swapped value to the right
-            tl = right
-            tr = tl + 1
-            while tr <= end and arr[tr] < arr[tl]:
-                arr[tl], arr[tr] = arr[tr], arr[tl]
-                tl += 1
-                tr += 1
+            # Move the elements before the right index to the right 
+            index = right
+            while index != left:
+                arr[index] = arr[index - 1]
+                index -= 1
+
+            arr[left] = value
+            left += 1
+            right += 1
+            mid += 1
 
         if left >= right:
             right = left + 1
