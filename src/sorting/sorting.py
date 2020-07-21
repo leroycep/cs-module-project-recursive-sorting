@@ -48,10 +48,34 @@ def merge_sort(arr):
 
 
 def merge_in_place(arr, start, mid, end):
-    # Your code here
-    pass
+    left = start
+    right = mid
+    while right <= end:
+        if arr[left] <= arr[right]:
+            left += 1
+        else:
+            # Swap the left and right values
+            arr[left], arr[right] = arr[right], arr[left]
+            left += 1
 
+            # Bubble the swapped value to the right
+            tl = right
+            tr = tl + 1
+            while tr <= end and arr[tr] < arr[tl]:
+                arr[tl], arr[tr] = arr[tr], arr[tl]
+                tl += 1
+                tr += 1
 
+        if left >= right:
+            right = left + 1
+
+# l and r are inclusive
 def merge_sort_in_place(arr, l, r):
-    # Your code here
-    pass
+    if r - l < 1:
+        return
+    else:
+        mid = (l + r) // 2
+        merge_sort_in_place(arr, l, mid)
+        merge_sort_in_place(arr, mid+1, r)
+        merge_in_place(arr, l, mid+1, r)
+
